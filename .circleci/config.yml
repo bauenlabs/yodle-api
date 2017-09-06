@@ -1,0 +1,37 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/node:8.4.0
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      # Download and cache dependencies
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "yarn.lock" }}
+          # fallback to using the latest cache if no exact match is found
+          - v1-dependencies-
+
+      - run: yarn install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+
+      - run: ./node_modules/greenkeeper-lockfile/update.js
+      - run: yarn flow
+      - run: yarn build
+      - run: yarn lint
+      - run: yarn test
+      - run: ./node_modules/greenkeeper-lockfile/upload.js
+
+      - type: deploy
+        name: Deploy project.
+        command: |
+          if [ "${CIRCLE_BRANCH}" == "master" ]; then
+            yarn semantic-release
+          fi

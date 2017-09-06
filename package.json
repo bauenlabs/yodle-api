@@ -1,0 +1,66 @@
+{
+  "name": "yodle-api",
+  "version": "0.0.0-development",
+  "description": "Yodle is a JSON API for interacting with Echo's cache.",
+  "main": "index.js",
+  "repository": "git@github.com:bauenlabs/yodle-api.git",
+  "homepage": "https://github.com/bauenlabs/yodle-api/blob/master/README.md",
+  "author": "Patrick Coffey <patrickcoffey48@gmail.com>",
+  "license": "GPL-3.0",
+  "contributors": [
+    {
+      "name": "Patrick Coffey",
+      "email": "patrickcoffey48@gmail.com"
+    }
+  ],
+  "engines": {
+    "node": ">=8.4.0"
+  },
+  "lint-staged": {
+    "src/**/*.{js,jsx,json,css}": [
+      "prettier --single-quote --write",
+      "git add"
+    ]
+  },
+  "release": {
+    "verifyConditions": "condition-circle"
+  },
+  "scripts": {
+    "lint": "eslint --ext .jsx,.js src",
+    "test": "jest",
+    "prettier": "prettier --single-quote --write \"/src/**/*.{js,jsx}\"",
+    "build": "babel src/ -d lib/",
+    "prepublish": "yarn run build",
+    "greenkeeper-lock": "greenkeeper-lockfile-update ; greenkeeper-lockfile-upload",
+    "semantic-release": "semantic-release pre ; npm publish ; semantic-release post",
+    "flow": "flow",
+    "commitmsg": "validate-commit-msg",
+    "precommit": "lint-staged && yarn lint && yarn flow"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-eslint": "^7.2.3",
+    "babel-jest": "^20.0.3",
+    "babel-preset-env": "^1.6.0",
+    "babel-preset-flow": "^6.23.0",
+    "condition-circle": "^1.5.0",
+    "eslint": "^4.4.1",
+    "eslint-config-airbnb": "^15.1.0",
+    "eslint-config-prettier": "^2.3.0",
+    "eslint-plugin-flowtype": "^2.35.0",
+    "eslint-plugin-import": "^2.7.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-prettier": "^2.1.2",
+    "eslint-plugin-react": "^7.3.0",
+    "flow-bin": "^0.54.0",
+    "greenkeeper-lockfile": "^1.8.1",
+    "husky": "^0.14.3",
+    "jest": "^20.0.4",
+    "lint-staged": "^4.0.3",
+    "prettier": "^1.5.3",
+    "semantic-release": "^7.0.2",
+    "semantic-release-conventional-commits": "^1.1.0",
+    "validate-commit-msg": "^2.14.0"
+  }
+}
