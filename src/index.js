@@ -1,16 +1,35 @@
 /**
  * @file index.js
- * Exports a simple (throw away) addition method.
+ * Defines the Yodle server.
  */
 
-// @flow
+const express = require('express');
+const fortune = require('fortune');
+const fortuneHTTP = require('fortune-http');
+const fortuneMongo = require('fortune-mongodb');
+const fortuneJsonAPI = require('fortune-json-api');
 
-/**
- * Adds two numbers together and returns result.
- *
- * @param {number} a - First number.
- * @param {number} b - Second number.
- *
- * @returns {number} - Value of a and b added together.
- */
-module.exports = (a: ?number, b: ?number) => a + b;
+// Initialize fortune instance (Define schema and store).
+const store = fortune(
+  {
+    hostname: {
+      name: String
+    }
+  },
+  {
+    adapter: [fortuneMongo, { url: 'mongodb://34.211.179.255:27017/test' }]
+  }
+);
+
+// Initialize an HTTP listener.
+const listener = fortuneHTTP(store, {
+  serializers: [[fortuneJsonAPI]]
+});
+
+// Initialize app object.
+const app = express();
+app.use((req, res) => {
+  listener(req, res);
+});
+
+app.listen(process.env.YODLE_PORT || 3000);

@@ -28,6 +28,9 @@ This project uses [Jest](https://facebook.github.io/jest/), [ESlint](https://git
  * To validate flow typing, run: `yarn flow`.
  * NOTE: lint and prettier will be run before a commit is made.
 
+## Dev server
+To start the dev server for this project, run `yarn start`.
+
 ## Building
 To build this project, simply run `yarn build`.
 

@@ -30,6 +30,7 @@
     "test": "jest",
     "prettier": "prettier --single-quote --write \"/src/**/*.{js,jsx}\"",
     "build": "babel src/ -d lib/",
+    "start": "nodemon src/index.js",
     "prepublish": "yarn run build",
     "greenkeeper-lock": "greenkeeper-lockfile-update ; greenkeeper-lockfile-upload",
     "semantic-release": "semantic-release pre ; npm publish ; semantic-release post",
@@ -37,7 +38,13 @@
     "commitmsg": "validate-commit-msg",
     "precommit": "lint-staged && yarn lint && yarn flow"
   },
-  "dependencies": {},
+  "dependencies": {
+    "express": "^4.15.4",
+    "fortune": "^5.2.11",
+    "fortune-http": "^1.2.8",
+    "fortune-json-api": "^2.1.2",
+    "fortune-mongodb": "^1.1.6"
+  },
   "devDependencies": {
     "babel-cli": "^6.26.0",
     "babel-eslint": "^7.2.3",
@@ -58,6 +65,7 @@
     "husky": "^0.14.3",
     "jest": "^20.0.4",
     "lint-staged": "^4.0.3",
+    "nodemon": "^1.12.0",
     "prettier": "^1.5.3",
     "semantic-release": "^7.0.2",
     "semantic-release-conventional-commits": "^1.1.0",
